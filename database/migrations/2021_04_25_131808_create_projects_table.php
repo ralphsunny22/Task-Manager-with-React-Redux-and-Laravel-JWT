@@ -17,8 +17,8 @@ class CreateProjectsTable extends Migration
             $table->id();
 
             $table->string('name');
-            $table->string('slug');
-            $table->unsignedBigInteger('user_id');
+            $table->string('slug')->unique();
+            $table->unsignedBigInteger('user_id'); //kind of admin
             $table->text('description');
             $table->boolean('is_completed')->default(0);
 

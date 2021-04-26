@@ -17,6 +17,9 @@ class CreateTasksTable extends Migration
             $table->id();
 
             $table->string('title');
+            $table->unsignedBigInteger('created_by'); //kind of user logged in then
+            $table->unsignedBigInteger('done_by')->nullable(); //can be same as created_by above
+            $table->string('slug')->unique();
             $table->unsignedBigInteger('project_id');
             $table->boolean('is_completed')->default(0);
 

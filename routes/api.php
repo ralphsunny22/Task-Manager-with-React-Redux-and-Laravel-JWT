@@ -14,9 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::get('projects', 'TaskManagerController@allProjects')->name('allProjects');
+Route::post('projects', 'TaskManagerController@addProject')->name('addProject');
+Route::get('projects/{project}', 'TaskManagerController@singleProject')->name('singleProject');
+Route::post('projects/{project}', 'TaskManagerController@markProjectAsCompleted')->name('markProjectAsCompleted');
+
+Route::post('tasks', 'TaskManagerController@addTask');
+Route::get('tasks/{task}', 'TaskManagerController@singleTask')->name('singleTask');
+Route::post('tasks/{task}', 'TaskManagerController@markTaskAsCompleted')->name('markTaskAsCompleted');
 
 //jwt
 Route::group([
