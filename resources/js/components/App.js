@@ -13,7 +13,11 @@ function App() {
         <BrowserRouter>
           <div>
             <Header />
-            <Projects />
+            
+              <Switch>
+                <Route exact path="/" component={Projects} />
+              </Switch>
+            
           </div>
         </BrowserRouter>
       </Provider>
