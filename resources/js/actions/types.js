@@ -1,0 +1,2 @@
+export const PROJECTS_LOADING = 'POSTS_LOADING';
+export const GET_PROJECTS = 'GET_POSTS';
