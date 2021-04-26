@@ -1,4 +1,4 @@
-import { PROJECTS_LOADING, GET_PROJECTS } from '../actions/types';
+import { PROJECTS_LOADING, GET_PROJECTS, ADD_PROJECT, ADD_PROJECT_FAIL } from '../actions/types';
 
 const initialState = {
     projects: [],
@@ -21,6 +21,20 @@ export default function postReducer(state = initialState, action){
                 ...state,
                 projects: action.payload.data,
                 isLoadingProjects: false
+            }
+
+        case ADD_PROJECT:
+            return {
+                ...state,
+                projects: [action.payload.data, ...state.projects ],
+                projectSuccessMsg: action.payload.message
+
+            }
+
+        case ADD_PROJECT_FAIL:
+            return {
+                ...state,
+                post: {}
             }
     
         default:

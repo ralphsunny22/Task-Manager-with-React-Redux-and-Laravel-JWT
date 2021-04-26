@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from './layouts/Header'
 import Projects from './projects/Projects'
+import AddProject from './projects/AddProject'
 
 import { Provider } from 'react-redux';
 import store  from '../store'
@@ -16,6 +17,7 @@ function App() {
             
               <Switch>
                 <Route exact path="/" component={Projects} />
+                <Route exact path="/addProject" component={AddProject} />
               </Switch>
             
           </div>

@@ -23,7 +23,7 @@ const Projects = () => {
               <div className='card'>
                 <div className='card-header'>All projects</div>
                 <div className='card-body'>
-                  <Link className='btn btn-primary btn-sm mb-3' to='/create'>
+                  <Link className='btn btn-primary btn-sm mb-3' to='/addProject'>
                     Create new project
                   </Link>
                   <ul className='list-group list-group-flush'>

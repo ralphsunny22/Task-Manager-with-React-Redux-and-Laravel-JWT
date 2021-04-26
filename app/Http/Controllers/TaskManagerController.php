@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddProjectRequest;
 use App\Http\Resources\ProjectResource;
 use App\Http\Resources\TaskResource;
 use App\Model\Project;
@@ -35,24 +36,32 @@ class TaskManagerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function addProject(Request $request)
+    public function addProject(AddProjectRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'user_id' => 'required'
-        ]);
+        // $validatedData = $request->validate([
+        //     'name' => 'required',
+        //     'description' => 'required',
+        //     //'user_id' => 'required'
+        // ]);
+
+        // if ($validatedData->fails()) {
+        //     return response()->json($validatedData->errors(), 422);
+        // }
 
         $now = time();
 
         $project = Project::create([
-            'name' => $validatedData['name'],
-            'slug' => Str::slug($validatedData['name'] . '' . $now),
-            'description' => $validatedData['description'],
-            'user_id' => $validatedData['user_id'],
+            'name' => $request['name'],
+            'slug' => Str::slug($request['name'] . '' . $now),
+            'description' => $request['description'],
+            'user_id' => 1,
         ]);
 
-        return response()->json('Project created!');
+        //return response()->json('Project created!');
+        return response([
+            'message' => 'Created Successfully',
+            'data' => new ProjectResource($project), 'status' => Response::HTTP_CREATED
+        ]);
     }
 
     /**
