@@ -1,8 +1,25 @@
-export const PROJECTS_LOADING = 'POSTS_LOADING';
-export const GET_PROJECTS = 'GET_POSTS';
+export const PROJECTS_LOADING = "PROJECTS_LOADING";
+export const GET_PROJECTS = "GET_PROJECTS";
+export const SINGLE_PROJECT = "SINGLE_PROJECT";
 
-export const ADD_PROJECT = 'ADD_PROJECT';
-export const ADD_PROJECT_FAIL = 'ADD_PROJECT_FAIL';
+export const ADD_PROJECT = "ADD_PROJECT";
+export const ADD_PROJECT_FAIL = "ADD_PROJECT_FAIL";
 
-export const GET_ERRORS = 'GET_ERRORS';
-export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+export const ADD_TASK = "ADD_TASK";
+export const ADD_TASK_FAIL = "ADD_TASK_FAIL";
+
+export const MARK_TASK_AS_COMPLETED = "MARK_TASK_AS_COMPLETED";
+
+//users
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const REGISTER_FAIL = "REGISTER_FAIL";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAIL = "LOGIN_FAIL";
+
+export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
+
+export const USER_LOADED = "USER_LOADED";
+export const AUTH_ERROR = "AUTH_ERROR";
+
+export const GET_ERRORS = "GET_ERRORS";
+export const CLEAR_ERRORS = "CLEAR_ERRORS";

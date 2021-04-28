@@ -18,26 +18,33 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('projects', 'TaskManagerController@allProjects')->name('allProjects');
-Route::post('projects', 'TaskManagerController@addProject')->name('addProject');
-Route::get('projects/{project}', 'TaskManagerController@singleProject')->name('singleProject');
-Route::post('projects/{project}', 'TaskManagerController@markProjectAsCompleted')->name('markProjectAsCompleted');
+Route::get('/projects', 'TaskManagerController@allProjects')->name('allProjects');
+Route::post('/project', 'TaskManagerController@addProject')->name('addProject');
+Route::get('project/{project}', 'TaskManagerController@singleProject')->name('singleProject');
+Route::post('project/{project}', 'TaskManagerController@markProjectAsCompleted')->name('markProjectAsCompleted');
+
+
 
 Route::post('tasks', 'TaskManagerController@addTask');
 Route::get('tasks/{task}', 'TaskManagerController@singleTask')->name('singleTask');
 Route::post('tasks/{task}', 'TaskManagerController@markTaskAsCompleted')->name('markTaskAsCompleted');
 
 //jwt
-Route::group([
+// Route::group([
 
-    'middleware' => 'api',
-    'prefix' => 'auth'
+//     'middleware' => 'api',
+//     'prefix' => 'auth'
 
-], function ($router) {
+// ], function ($router) {
 
-    Route::post('login', 'AuthController@login');
-    Route::post('register', 'AuthController@register');
-    Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
-});
+//     Route::post('login', 'AuthController@login');
+//     Route::post('register', 'AuthController@register');
+//     Route::post('logout', 'AuthController@logout');
+//     Route::post('refresh', 'AuthController@refresh');
+//     Route::post('me', 'AuthController@me');
+// });
+
+Route::post('/register', 'AuthController@register')->name('register');
+Route::post('/login', 'AuthController@login')->name('login');
+Route::get('/user', 'AuthController@user')->name('user');
+Route::get('/logout', 'AuthController@logout')->name('logout');

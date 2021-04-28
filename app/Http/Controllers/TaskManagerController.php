@@ -14,6 +14,16 @@ use Illuminate\Support\Str;
 class TaskManagerController extends Controller
 {
     /**
+     * Create a new TaskManagerController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('JWT', ['except' => ['allProjects', 'singleProject', 'singleTask', 'markTaskAsCompleted']]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -49,12 +59,11 @@ class TaskManagerController extends Controller
         // }
 
         $now = time();
-
         $project = Project::create([
             'name' => $request['name'],
             'slug' => Str::slug($request['name'] . '' . $now),
             'description' => $request['description'],
-            'user_id' => 1,
+            'user_id' => $request['user_id'],
         ]);
 
         //return response()->json('Project created!');
@@ -75,7 +84,7 @@ class TaskManagerController extends Controller
         $validatedData = $request->validate([
             'title' => 'required',
             'project_id' => 'required',
-            'created_by' => 'required'
+            //'created_by' => 'required'
         ]);
 
         $now = time();
@@ -84,8 +93,7 @@ class TaskManagerController extends Controller
             'title' => $validatedData['title'],
             'slug' => Str::slug($validatedData['title'] . '' . $now),
             'project_id' => $validatedData['project_id'],
-            'created_by' => $validatedData['created_by'],
-
+            'created_by' => 1,
 
         ]);
 
@@ -104,13 +112,19 @@ class TaskManagerController extends Controller
      */
     public function singleProject(Project $project)
     {
-        // $project = Project::with(['tasks' => function ($query) {
+        // $single_project = Project::with(['tasks' => function ($query) {
         //     $query->where('is_completed', false);
-        // }])->find($slug);
+        // }])->find($project);
 
-        //return $project->toJson();
+        // return $single_project->toJson();
 
-        return new ProjectResource($project);
+        //return new ProjectResource($project);
+
+        $tasks = Task::where('project_id', $project->id)->where('is_completed', false)->orderBy('created_at', 'Desc')->get();
+
+        return response([
+            'data' => new ProjectResource($project), 'tasks' => $tasks, 'status' => Response::HTTP_ACCEPTED
+        ]);
     }
 
     public function singleTask(Task $task)

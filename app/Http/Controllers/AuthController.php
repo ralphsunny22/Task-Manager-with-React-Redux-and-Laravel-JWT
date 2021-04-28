@@ -33,9 +33,9 @@ class AuthController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
+        // if ($validator->fails()) {
+        //     return response()->json($validator->errors(), 422);
+        // }
 
         if (!$token = auth()->attempt($validator->validated())) {
             return response()->json(['error' => 'Unauthorized'], 401);
@@ -57,9 +57,9 @@ class AuthController extends Controller
             'password' => 'required|string|confirmed|min:6',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->toJson(), 400);
-        }
+        // if ($validator->fails()) {
+        //     return response()->json($validator->errors()->toJson(), 400);
+        // }
 
         $user = User::create(array_merge(
             $validator->validated(),
@@ -102,9 +102,26 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me()
+    // public function user()
+    // {
+    //     return response()->json(auth()->user());
+    // }
+
+    public function user(Request $request)
     {
-        return response()->json(auth()->user());
+        $tokenWithBearer = $request->header('Authorization');
+        $bearer = substr($tokenWithBearer, 1, 7);
+        $token = substr($tokenWithBearer, 7, -1);
+
+        $user = Auth::user();
+
+        return response()->json([
+            'message' => 'Success',
+            'user' => $user,
+            //'posts' => $user->posts,
+            'access_token' => trim($token),
+            'token_type' => trim($bearer),
+        ]);
     }
 
     /**

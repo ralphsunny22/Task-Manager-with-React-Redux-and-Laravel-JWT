@@ -29,6 +29,6 @@ class Project extends Model
     public function getPathAttribute()
     {
         //return asset("projects/$this->slug");
-        return "projects/$this->slug";
+        return "project/$this->slug";
     }
 }
